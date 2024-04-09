@@ -1,0 +1,53 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "a title",
+      "views": 100,
+      "table": 2
+    },
+    {
+      "id": 2,
+      "title": "another title",
+      "views": 200,
+      "table": 2
+    },
+    {
+      "id": 3,
+      "title": "Hello World",
+      "views": 2001,
+      "table": 1
+    },
+    {
+      "title": "Hello Worl",
+      "views": 40,
+      "id": 4,
+      "table": 1
+    },
+    {
+      "title": "Hello Worl",
+      "views": 2020,
+      "id": 5,
+      "table": 1
+    },
+    {
+      "title": "Hello Worl",
+      "views": 20,
+      "id": 6,
+      "table": 1
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "table": "libri"
+    },
+    {
+      "id": "2",
+      "table": "film"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
