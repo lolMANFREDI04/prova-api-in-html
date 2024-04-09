@@ -1,0 +1,20 @@
+.borderer {
+    border-collapse: collapse; /* Unisce i bordi delle celle */
+}
+
+.borderer, .borderer tr, .borderer td {
+    border: 1px solid black; /* Applica il bordo alla tabella e alle righe */
+}
+
+.borderer th, .borderer td {
+    padding: 8px; /* Aggiunge spazio interno alle celle */
+}
+
+.centrato{
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.tableDiv{
+    width: max-content;
+}
