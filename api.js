@@ -51,7 +51,6 @@ function getTitle(){
 function getAll(tableId){
 
   var page=1;
-  var pageStop=false;
   for(i=0;i<ff;i++){
     if(pager[i].tableId == tableId){
       page= pager[i].page;
@@ -59,41 +58,40 @@ function getAll(tableId){
     }
   }
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost:3000/posts?table="+tableId+"&_sort=views&_page="+page+"&_limit=3");
+  xhr.open("GET", "http://localhost:3000/posts?table="+tableId+"&_sort=views&_page="+page+"&_limit=3"); //&_sort=sortValue  //&_calc=calculateSortValue
   xhr.send();
   xhr.responseType = "json";
   xhr.onload = () => {
     if (xhr.readyState == 4 && xhr.status == 200) {
 
-        const data = xhr.response;
-        console.log(data);
+      const data = xhr.response;
+      console.log(data);
 
-        for(i=0;i<ff;i++){
-          if(pager[i].tableId == tableId){
-            if(data.length<=0){
-              pager[i].pageStop=true;
-            }else{
-              pager[i].pageStop=false;
-            }
+      for(i=0;i<ff;i++){
+        if(pager[i].tableId == tableId){
+          if(data.length<=0){
+            pager[i].pageStop=true;
+          }else{
+            pager[i].pageStop=false;
           }
         }
+      }
 
-        table = document.getElementById("table-"+tableId);
+      table = document.getElementById("table-"+tableId);
 
-        if(table){
-          table.innerHTML ="";
+      if(table){
+        table.innerHTML ="";
 
-          if(data.length>0){
+        if(data.length>0){
 
-            for(var i=0;i<data.length;i++){
-              table.innerHTML += "<tr><td>"+ data[i].id +"</td><td>"+ data[i].title +"</td><td>"+ data[i].views +"</td><td>"+ data[i].table +"</td></tr>";
-            }
-          }else{
-            table.innerHTML = "<tr class=\"borderer\"><p class=\"borderer\">ddddd</p></tr>"
+          for(var i=0;i<data.length;i++){
+            table.innerHTML += "<tr><td>"+ data[i].id +"</td><td>"+ data[i].title +"</td><td>"+ data[i].views +"</td><td>"+ data[i].table +"</td></tr>";
           }
+        }else{
+          table.innerHTML = "<tr class=\"borderer\"><p class=\"borderer\">ddddd</p></tr>"
+        }
 
-        } 
-
+      } 
 
     } else {
       console.log(`Error: ${xhr.status}`);
