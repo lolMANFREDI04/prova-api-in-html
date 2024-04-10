@@ -59,7 +59,7 @@ function getAll(tableId){
     }
   }
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost:3000/posts?table="+tableId+"&_page="+page+"&_limit=3&_sort=views");
+  xhr.open("GET", "http://localhost:3000/posts?table="+tableId+"&_sort=views&_page="+page+"&_limit=3");
   xhr.send();
   xhr.responseType = "json";
   xhr.onload = () => {
@@ -126,11 +126,12 @@ function putt(){
 
     var title = document.getElementById("title").value;
 
-    var views = document.getElementById("views").value;
+    debugger;
+    var views =  parseInt(document.getElementById("views").value);
 
-    var table = document.getElementById("table").value;
+    var table =  parseInt(document.getElementById("table").value);
 
-    if(title!="" && views!="" && table!=""){
+    if(title!="" && views!="" && table!="" && !isNaN(table)){
       debugger;
       const options = {
         method: 'POST',
@@ -148,6 +149,7 @@ function putt(){
         .then(response => response.json())
         .then(data => {
           console.log(data);
+          document.getElementById("data-table-form").reset();
           getAll(table);
         })
         .catch(error => console.error('Error:', error));
