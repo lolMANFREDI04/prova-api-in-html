@@ -2,55 +2,37 @@
   "posts": [
     {
       "id": 1,
-      "data": [
-        "guiseppe",
-        "a title",
-        100
-      ],
+      "title": "a title",
+      "views": 100,
       "table": 2
     },
     {
       "id": 2,
-      "data": [
-        "guiseppe",
-        "another title",
-        200
-      ],
+      "title": "another title",
+      "views": 200,
       "table": 2
     },
     {
       "id": 3,
-      "data": [
-        "guiseppe",
-        "Hello World",
-        2001
-      ],
+      "title": "Hello World",
+      "views": 2001,
       "table": 1
     },
     {
-      "data": [
-        "guiseppe",
-        "Hello Worl",
-        40
-      ],
+      "title": "Hello Worl",
+      "views": 40,
       "id": 4,
       "table": 1
     },
     {
-      "data": [
-        "guiseppe",
-        "Hello Worl",
-        2020
-      ],
+      "title": "Hello Worl",
+      "views": 2020,
       "id": 5,
       "table": 1
     },
     {
-      "data": [
-        "guiseppe",
-        "Hello Worl",
-        20
-      ],
+      "title": "Hello Worl",
+      "views": 20,
       "id": 6,
       "table": 1
     }

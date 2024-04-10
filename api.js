@@ -23,16 +23,17 @@ function getTitle(){
           if(data.length>0){
             pager[index]= {
               page: 1,
-              tableId: item.id
+              tableId: item.id,
+              pageStop: false
             };
             
-            tableSpace.innerHTML += "<div class=\"tableDiv\" id=\"divTab-"+item.id+"\"><h3 class=\"centrato\">"+item.table+"</h3><table class=\"borderer\"><thead><tr id=\"thead-"+item.id+"\"></tr></thead><tbody><tr id=\"table-"+item.id+"\"></tr></tbody></table><button id=\"prev-"+item.id+"\" onclick=\"prev("+item.id+")\">prev</button> <button id=\"next-"+item.id+"\" onclick=\"next("+item.id+")\">next</button></div>"; //<tr><th class=\"borderer\">ID</th><th class=\"borderer\">Title</th><th class=\"borderer\">Views</th><th class=\"borderer\">Table</th></tr>
+            tableSpace.innerHTML += "<div class=\"tableDiv\" id=\"divTab-"+item.id+"\"><h3 class=\"centrato\">"+item.table+"</h3><table class=\"borderer\"><thead><tr><th class=\"borderer\">ID</th><th class=\"borderer\">Title</th><th class=\"borderer\">Views</th><th class=\"borderer\">Table</th></tr></thead><tbody id=\"table-"+item.id+"\"></tbody></table><button id=\"prev-"+item.id+"\" onclick=\"prev("+item.id+")\">prev</button> <button id=\"next-"+item.id+"\" onclick=\"next("+item.id+")\">next</button></div>"; 
 
-            thead = document.getElementById("thead-"+item.id);
+            // thead = document.getElementById("thead-"+item.id);
 
-            for(var i=0;i<item.th.length;i++){
-              thead.innerHTML += "<th class=\"borderer\">"+ item.th[i] +"</th>";
-            }
+            // for(var i=0;i<item.th.length;i++){
+            //   thead.innerHTML += "<th class=\"borderer\">"+ item.th[i] +"</th>";
+            // }
           }else{
             tableSpace.innerHTML = "no table";
           }
@@ -50,6 +51,7 @@ function getTitle(){
 function getAll(tableId){
 
   var page=1;
+  var pageStop=false;
   for(i=0;i<ff;i++){
     if(pager[i].tableId == tableId){
       page= pager[i].page;
@@ -57,7 +59,7 @@ function getAll(tableId){
     }
   }
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost:3000/posts?table="+tableId+"&_page="+page+"&_limit=1"); //&_sort=views
+  xhr.open("GET", "http://localhost:3000/posts?table="+tableId+"&_page="+page+"&_limit=3&_sort=views");
   xhr.send();
   xhr.responseType = "json";
   xhr.onload = () => {
@@ -66,6 +68,16 @@ function getAll(tableId){
         const data = xhr.response;
         console.log(data);
 
+        for(i=0;i<ff;i++){
+          if(pager[i].tableId == tableId){
+            if(data.length<=0){
+              pager[i].pageStop=true;
+            }else{
+              pager[i].pageStop=false;
+            }
+          }
+        }
+
         table = document.getElementById("table-"+tableId);
 
         if(table){
@@ -73,15 +85,9 @@ function getAll(tableId){
 
           if(data.length>0){
 
-            let index = 0;
-            data.forEach(item => {
-
-              table.innerHTML += "<td>"+ item.id +"</td>";
-
-              for(var i=0;i<item.data.length;i++){
-                table.innerHTML += "<td>"+ item.data[i] +"</td>";
-              }
-            });
+            for(var i=0;i<data.length;i++){
+              table.innerHTML += "<tr><td>"+ data[i].id +"</td><td>"+ data[i].title +"</td><td>"+ data[i].views +"</td><td>"+ data[i].table +"</td></tr>";
+            }
           }else{
             table.innerHTML = "<tr class=\"borderer\"><p class=\"borderer\">ddddd</p></tr>"
           }
@@ -98,7 +104,7 @@ function getAll(tableId){
 function next(tableId){
 
   for(i=0;i<ff;i++){
-    if(pager[i].tableId == tableId){
+    if(pager[i].tableId == tableId && pager[i].pageStop==false){
       pager[i].page= pager[i].page+1;
     }
   }
