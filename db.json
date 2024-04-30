@@ -153,19 +153,14 @@
       "table": 1,
       "id": 22,
       "category": 3
+    },
+    {
+      "title": "cuiai",
+      "views": 45,
+      "table": 3,
+      "id": 23
     }
   ],
-  // "calculations": {
-  //   "calculateSortValue": function(data, params) {
-  //     // Esegui la logica per calcolare sortValue
-  //     // data è l'array di post filtrati
-  //     // params contiene i parametri della query (es. _page, _limit, ecc.)
-  //     return data.map(post => ({
-  //       ...post,
-  //       sortValue: post.views + getDatoPerCalcolo(post.category) // Esegui la logica per ottenere il dato per il calcolo
-  //     }));
-  //   }
-  // },
   "comments": [
     {
       "id": "1",
@@ -193,6 +188,5 @@
       "category": 3,
       "datoPerCalcolo": 1000
     }
-    
   ]
 }

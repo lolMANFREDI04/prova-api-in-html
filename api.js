@@ -27,7 +27,7 @@ function getTitle(){
               pageStop: false
             };
             
-            tableSpace.innerHTML += "<div class=\"tableDiv\" id=\"divTab-"+item.id+"\"><h3 class=\"centrato\">"+item.table+"</h3><table class=\"borderer\"><thead><tr><th class=\"borderer\">ID</th><th class=\"borderer\">Title</th><th class=\"borderer\">Views</th><th class=\"borderer\">Table</th></tr></thead><tbody id=\"table-"+item.id+"\"></tbody></table><button id=\"prev-"+item.id+"\" onclick=\"prev("+item.id+")\">prev</button> <button id=\"next-"+item.id+"\" onclick=\"next("+item.id+")\">next</button></div>"; 
+            tableSpace.innerHTML += "<div class=\"tableDiv\" id=\"divTab-"+item.id+"\"><h3 class=\"centrato\">"+item.table+"</h3><table class=\"borderer\"><thead><tr><th class=\"borderer\">ID</th><th class=\"borderer\">Title</th><th class=\"borderer\">Views</th><th class=\"borderer\">Table</th><th class=\"borderer\">DEL</th></tr></thead><tbody id=\"table-"+item.id+"\"></tbody></table><button id=\"prev-"+item.id+"\" onclick=\"prev("+item.id+")\">prev</button> <button id=\"next-"+item.id+"\" onclick=\"next("+item.id+")\">next</button></div>"; 
 
             // thead = document.getElementById("thead-"+item.id);
 
@@ -85,7 +85,7 @@ function getAll(tableId){
         if(data.length>0){
 
           for(var i=0;i<data.length;i++){
-            table.innerHTML += "<tr><td>"+ data[i].id +"</td><td>"+ data[i].title +"</td><td>"+ data[i].views +"</td><td>"+ data[i].table +"</td></tr>";
+            table.innerHTML += "<tr><td>"+ data[i].id +"</td><td>"+ data[i].title +"</td><td>"+ data[i].views +"</td><td>"+ data[i].table +"</td><td><button onclick=\"del("+ data[i].id +");\"><i class=\"fa fa-trash-o\" style=\"font-size:24px\"></i></button></td></tr>";
           }
         }else{
           table.innerHTML = "<tr class=\"borderer\"><p class=\"borderer\">ddddd</p></tr>"
@@ -120,7 +120,7 @@ function prev(tableId){
   }
 }
 
-function putt(){
+function post(){
 
     var title = document.getElementById("title").value;
 
@@ -157,4 +157,22 @@ function putt(){
       console.log("campi mancanti")
     }
 
+}
+
+function del(id) {
+  const xhr = new XMLHttpRequest();
+  xhr.open("DELETE", "http://localhost:3000/posts/"+ id);
+  xhr.send();
+  xhr.responseType = "json";
+  xhr.onload = () => {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+
+      // const data = xhr.response;
+      // console.log(data);
+
+
+    } else {
+      console.log(`Error: ${xhr.status}`);
+    }
+  };  
 }
