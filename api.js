@@ -7,7 +7,7 @@ getTitle();
 function getTitle(){
 
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost:3000/comments");
+  xhr.open("GET", "http://localhost/proviaml/getTable.php");
   xhr.send();
   xhr.responseType = "json";
   xhr.onload = () => {
@@ -58,7 +58,7 @@ function getAll(tableId){
     }
   }
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost:3000/posts?table="+tableId+"&_sort=views&_page="+page+"&_limit=3"); //&_sort=sortValue  //&_calc=calculateSortValue
+  xhr.open("GET", "http://localhost/proviaml/index.php");
   xhr.send();
   xhr.responseType = "json";
   xhr.onload = () => {
