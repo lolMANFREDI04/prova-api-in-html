@@ -143,7 +143,7 @@ function post(){
         }),
       };
 
-      fetch('http://localhost:3000/posts', options)
+      fetch('http://localhost/proviaml/postData.php', options)
         .then(response => response.json())
         .then(data => {
           console.log(data);
@@ -161,7 +161,7 @@ function post(){
 
 function del(id) {
   const xhr = new XMLHttpRequest();
-  xhr.open("DELETE", "http://localhost:3000/posts/"+ id);
+  xhr.open("DELETE", "http://localhost/proviaml/deleteData.php/"+ id);
   xhr.send();
   xhr.responseType = "json";
   xhr.onload = () => {

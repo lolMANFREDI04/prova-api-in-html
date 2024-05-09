@@ -14,9 +14,9 @@ if (!$con) {
 }
 
 // Parametri della richiesta
-$tableId = $_GET['table']; //$tableId = 1;
-$page = $_GET['_page']; //$page = 1;
-$limit = $_GET['_limit']; //$limit = 3;
+$tableId = intval($_GET['table']); //$tableId = 1;
+$page = intval($_GET['_page']); //$page = 1;
+$limit = intval($_GET['_limit']); //$limit = 3;
 
 // Calcola l'offset in base alla pagina e al limite
 $offset = ($page - 1) * $limit;
