@@ -58,7 +58,7 @@ function getAll(tableId){
     }
   }
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost/proviaml/index.php");
+  xhr.open("GET", "http://localhost/proviaml/getFilteredData.php?table="+tableId+"&_sort=views&_page="+page+"&_limit=3"); //http://localhost/proviaml/getFilteredData.php?table="+tableId+"&_sort=views&_page="+page+"&_limit=3
   xhr.send();
   xhr.responseType = "json";
   xhr.onload = () => {

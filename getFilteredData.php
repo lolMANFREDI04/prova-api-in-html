@@ -1,5 +1,3 @@
-
-
 <?php
 
 $host = "localhost"; // Modifica questo con l'host del tuo database
@@ -16,9 +14,9 @@ if (!$con) {
 }
 
 // Parametri della richiesta
-$tableId = 1; //$tableId = $_GET['table'];
-$page = 1; //$page = $_GET['_page'];
-$limit = 3; //$limit = $_GET['_limit'];
+$tableId = $_GET['table']; //$tableId = 1;
+$page = $_GET['_page']; //$page = 1;
+$limit = $_GET['_limit']; //$limit = 3;
 
 // Calcola l'offset in base alla pagina e al limite
 $offset = ($page - 1) * $limit;
@@ -46,4 +44,3 @@ if (mysqli_num_rows($result) > 0) {
 // Chiudi la connessione
 mysqli_close($con);
 ?>
-

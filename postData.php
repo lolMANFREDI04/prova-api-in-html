@@ -14,3 +14,9 @@
     }
     mysqli_close($con)
 ?>
+
+
+
+<!-- INSERT INTO posts (id, title, views, `table`, category)
+VALUES 
+    (1, 'a title', 100, 2, 1), -->
