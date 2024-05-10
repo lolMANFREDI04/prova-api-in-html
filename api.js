@@ -48,17 +48,16 @@ function getTitle(){
   };
 }
 
-function getAll(tableId){
-
-  var page=1;
-  for(i=0;i<ff;i++){
-    if(pager[i].tableId == tableId){
-      page= pager[i].page;
+function getAll(tableId) {
+  var page = 1;
+  for (var i = 0; i < ff; i++) {
+    if (pager[i].tableId == tableId) {
+      page = pager[i].page;
       break;
     }
   }
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://localhost/proviaml/getFilteredData.php?table="+tableId+"&_sort=views&_page="+page+"&_limit=3"); //http://localhost/proviaml/getFilteredData.php?table="+tableId+"&_sort=views&_page="+page+"&_limit=3
+  xhr.open("GET", "http://localhost/proviaml/getFilteredData.php?table=" + tableId + "&_sort=views&_page=" + page + "&_limit=3");
   xhr.send();
   xhr.responseType = "json";
   xhr.onload = () => {
@@ -67,12 +66,12 @@ function getAll(tableId){
       const data = xhr.response;
       console.log(data);
 
-      for(i=0;i<ff;i++){
-        if(pager[i].tableId == tableId){
-          if(data.length<=0){
-            pager[i].pageStop=true;
-          }else{
-            pager[i].pageStop=false;
+      for (var i = 0; i < ff; i++) {
+        if (pager[i].tableId == tableId) {
+          if (data.length <= 0) {
+            pager[i].pageStop = true;
+          } else {
+            pager[i].pageStop = false;
           }
         }
       }
@@ -82,16 +81,23 @@ function getAll(tableId){
       if(table){
         table.innerHTML ="";
 
-        if(data.length>0){
-
-          for(var i=0;i<data.length;i++){
-            table.innerHTML += "<tr><td>"+ data[i].id +"</td><td>"+ data[i].title +"</td><td>"+ data[i].views +"</td><td>"+ data[i].table +"</td><td><button onclick=\"del("+ data[i].id +");\"><i class=\"fa fa-trash-o\" style=\"font-size:24px\"></i></button></td></tr>";
+        if (data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+            table.innerHTML += "<tr><td>" + data[i].id + "</td><td>" + data[i].title + "</td><td>" + data[i].views + "</td><td>" + data[i].table + "</td><td><button onclick=\"del(" + data[i].id + ");\"><i class=\"fa fa-trash-o\" style=\"font-size:24px\"></i></button></td></tr>";
           }
-        }else{
-          table.innerHTML = "<tr class=\"borderer\"><p class=\"borderer\">ddddd</p></tr>"
+        } else {
+          table.innerHTML = "<tr class=\"borderer\"><p class=\"borderer\">Nessun risultato trovato.</p></tr>";
+          // Disabilita il pulsante "Successivo" se non ci sono più dati
+          document.getElementById("next-button-" + tableId).disabled = true;
         }
 
-      } 
+        // Disabilita il pulsante "Precedente" se l'utente è alla prima pagina
+        if (page === 1) {
+          document.getElementById("prev-button-" + tableId).disabled = true;
+        } else {
+          document.getElementById("prev-button-" + tableId).disabled = false;
+        }
+      }
 
     } else {
       console.log(`Error: ${xhr.status}`);
@@ -99,20 +105,18 @@ function getAll(tableId){
   };
 }
 
-function next(tableId){
 
-  for(i=0;i<ff;i++){
+function next(tableId){
+  for(var i=0;i<ff;i++){
     if(pager[i].tableId == tableId && pager[i].pageStop==false){
       pager[i].page= pager[i].page+1;
+      getAll(tableId);
     }
   }
-
-  getAll(tableId);
 }
 
 function prev(tableId){
-
-  for(i=0;i<ff;i++){
+  for(var i=0;i<ff;i++){
     if(pager[i].tableId == tableId && pager[i].page>1){
       pager[i].page= pager[i].page-1;
       getAll(tableId);
@@ -121,6 +125,7 @@ function prev(tableId){
 }
 
 function post(){
+  debugger
 
     var title = document.getElementById("title").value;
 
@@ -175,4 +180,39 @@ function del(id) {
       console.log(`Error: ${xhr.status}`);
     }
   };  
+}
+
+
+function post_newTable(){
+  debugger;
+
+  var table = document.getElementById("table-cration").value;
+
+  if(table!=""){
+    debugger;
+    const options = {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          table: table
+      }),
+    };
+
+    fetch('http://localhost/proviaml/postTable.php', options)
+      .then(response => response.json())
+      .then(data => {
+        debugger;
+        console.log(data);
+        document.getElementById("table-cration-form").reset();
+        getTitle();
+      })
+      .catch(error => console.error('Error:', error));
+
+  }
+  else{
+    console.log("campi mancanti");
+  }
+
 }
